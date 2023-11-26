@@ -1,6 +1,7 @@
 let canvas = document.querySelector(".canvas")
 let context = canvas.getContext("2d")
-let curentRoom = 1
+let span1 = document.querySelector(".span1")
+let curentRoom = 2
 let greenKey = false
 let redKey = false
 let image1 = new Image()
@@ -9,14 +10,9 @@ let image3 = new Image()
 let image4 = new Image()
 let image5 = new Image()
 let image6 = new Image()
+let typed1 = null
+let isTyping = false
 
-let typed = new Typed('#typed', {
-    stringsElement: '#typedStrings',
-    typeSpeed: 100,
-    startDelay: 500,
-    backSpeed: 50,
-    loop: true
-})
 
 image1.src = "/image/room1.jpg"
 image2.src = "/image/room2.jpg"
@@ -30,70 +26,70 @@ context.font = "20px Arial"
 function room1() {
     context.clearRect(0, 0, 1000, 1000)
     context.drawImage(image1, 10, 10, 780, 400)
-    context.fillText('Вы нашли вход в подземелье', 15, 430)
-    context.fillText('1.Зайти внутрь', 20, 460)
-    context.fillText('2.Струсить и не идти', 20, 490)
-    context.fillText('КОМНАТА 1', 20, 600)
+
+    isTyping = true
+
+    let typed = new Typed('#typed', {
+        stringsElement: '#typedStrings1',
+        typeSpeed: 100,
+        startDelay: 500,
+        backSpeed: 50,
+        loop: true,
+        onComolete: function () {
+            isTyping = false
+        }
+    })
 }
 
 function room2() {
     context.clearRect(0, 0, 1000, 1000)
     context.drawImage(image2, 10, 10, 780, 400)
-    context.fillText('Пройдя часть подземелья вы оказались в коридорах', 15, 430)
-    context.fillText('1.Пройти вперёд', 20, 460)
-    context.fillText('2.Пройти в комнату налево', 20, 490)
-    context.fillText('3.Осмотреться', 20, 520)
-    context.fillText('4.Пойти назад', 20, 550)
-    context.fillText('КОМНАТА 2', 20, 600)
 
+    isTyping = true
+
+    let typed = new Typed('#typed', {
+        stringsElement: '#typedStrings2',
+        typeSpeed: 100,
+        startDelay: 500,
+        backSpeed: 50,
+        loop: true,
+        onComolete: function () {
+            isTyping = false
+        }
+    })
 }
 
 
 function room3() {
     context.clearRect(0, 0, 1000, 1000)
     context.drawImage(image3, 10, 10, 780, 400)
-    context.fillText('После непродолжительного времени вы оказались в темнице', 15, 430)
-    context.fillText('1.Пройти вперёд', 20, 460)
-    context.fillText('2.Зайти в камеру', 20, 490)
-    context.fillText('3.Осмотреться', 20, 520)
-    context.fillText('4.Пойти назад', 20, 550)
-    context.fillText('КОМНАТА 3', 20, 600)
-}
 
+}
 
 function room4() {
     context.clearRect(0, 0, 1000, 1000)
     context.drawImage(image4, 10, 10, 780, 400)
-    context.fillText('Вы зашли в единственную открытую камеру', 15, 430)
-    context.fillText('1.Выйти из камеры', 20, 460)
-    context.fillText('2.Осмотреться', 20, 490)
-    context.fillText('КОМНАТА 4', 20, 600)
+
 }
 
 function room5() {
     context.clearRect(0, 0, 1000, 1000)
     context.drawImage(image5, 10, 10, 780, 400)
-    context.fillText('Вы зашли в как бы ее назвали охраники-"Подсобку"', 15, 430)
-    context.fillText('1.Вернуться в коридор', 20, 460)
-    context.fillText('2.Осмотреться', 20, 490)
-    context.fillText('КОМНАТА 5', 20, 600)
+
 
 }
 
 function room6() {
     context.clearRect(0, 0, 1000, 1000)
     context.drawImage(image6, 10, 10, 780, 400)
-    context.fillText(
-        "Пробираясь по темному участку подземелья, в конце Вам удалось увидеть свет", 15, 430
-    );
-    context.fillText(
-        '"Свобода" - подумали вы и оказались правы. Поздравляем!', 20, 460
-    )
-    context.fillText('КОМНАТА 6', 20, 600)
+
 
 }
 
 function switchRoom(event) {
+    if (isTyping) {
+        return
+    }
     if (event.key == 1) {
         if (curentRoom == 1) {
             curentRoom = 2
@@ -168,5 +164,5 @@ function switchRoom(event) {
     }
 }
 
-window.addEventListener('load', room1)
+window.addEventListener('load', room2)
 document.addEventListener('keydown', switchRoom)
