@@ -1,7 +1,6 @@
 let canvas = document.querySelector(".canvas")
 let context = canvas.getContext("2d")
-let span1 = document.querySelector(".span1")
-let curentRoom = 2
+let curentRoom = 1
 let greenKey = false
 let redKey = false
 let image1 = new Image()
@@ -10,8 +9,18 @@ let image3 = new Image()
 let image4 = new Image()
 let image5 = new Image()
 let image6 = new Image()
-let typed1 = null
-let isTyping = false
+let typed = null
+let music = new Audio('music.mp3')
+let screamer = new Audio('screamer.mp3')
+let typing = new Audio('typing.mp3')
+music.play()
+typing.play()
+music.volume = 0.1
+typing.volume = 0.1
+typing.play()
+// music.pause()
+// music.currentTime = 0
+// music.play()
 
 
 image1.src = "/image/room1.jpg"
@@ -21,23 +30,16 @@ image4.src = "/image/room4.jpg"
 image5.src = "/image/room5.jpg"
 image6.src = "/image/room6.jpg"
 
-context.font = "20px Arial"
-
 function room1() {
     context.clearRect(0, 0, 1000, 1000)
     context.drawImage(image1, 10, 10, 780, 400)
 
-    isTyping = true
-
-    let typed = new Typed('#typed', {
-        stringsElement: '#typedStrings1',
-        typeSpeed: 100,
+    typed = new Typed('#typed', {
+        strings: ['Вы нашли вход в подземелье </br> 1.Зайти внутрь </br> 2.Струсить и не идти'],
+        typeSpeed: 40,
         startDelay: 500,
         backSpeed: 50,
-        loop: true,
-        onComolete: function () {
-            isTyping = false
-        }
+        loop: false,
     })
 }
 
@@ -45,18 +47,14 @@ function room2() {
     context.clearRect(0, 0, 1000, 1000)
     context.drawImage(image2, 10, 10, 780, 400)
 
-    isTyping = true
-
-    let typed = new Typed('#typed', {
-        stringsElement: '#typedStrings2',
-        typeSpeed: 100,
+    typed = new Typed('#typed', {
+        strings: ['Пройдя часть подземелья вы оказались в коридорах </br> 1.Пройти вперёд </br> 2.Пройти в комнату налево </br> 3.Осмотреться <br> '],
+        typeSpeed: 40,
         startDelay: 500,
         backSpeed: 50,
-        loop: true,
-        onComolete: function () {
-            isTyping = false
-        }
+        loop: false,
     })
+
 }
 
 
@@ -64,11 +62,27 @@ function room3() {
     context.clearRect(0, 0, 1000, 1000)
     context.drawImage(image3, 10, 10, 780, 400)
 
+    typed = new Typed('#typed', {
+        strings: ['После непродолжительного времени вы оказались в темнице</br> 1.Пройти вперёд </br> 2.Зайти в камеру <br> 3.Осмотреться <br> 4.Пойти назад'],
+        typeSpeed: 40,
+        startDelay: 500,
+        backSpeed: 50,
+        loop: false,
+    })
+
 }
 
 function room4() {
     context.clearRect(0, 0, 1000, 1000)
     context.drawImage(image4, 10, 10, 780, 400)
+
+    typed = new Typed('#typed', {
+        strings: ['Вы зашли в единственную открытую камеру </br> 1.Выйти из камеры </br> 2.Осмотреться <br> '],
+        typeSpeed: 40,
+        startDelay: 500,
+        backSpeed: 50,
+        loop: false,
+    })
 
 }
 
@@ -76,19 +90,37 @@ function room5() {
     context.clearRect(0, 0, 1000, 1000)
     context.drawImage(image5, 10, 10, 780, 400)
 
-
+    typed = new Typed('#typed', {
+        strings: ['Вы зашли в как бы ее назвали охраники-"Подсобку" </br> 1.Вернуться в коридор </br> 2.Осмотреться'],
+        typeSpeed: 40,
+        startDelay: 500,
+        backSpeed: 50,
+        loop: false,
+    })
 }
 
 function room6() {
     context.clearRect(0, 0, 1000, 1000)
     context.drawImage(image6, 10, 10, 780, 400)
 
+    typed = new Typed('#typed', {
+        strings: ['Пробираясь по темному участку подземелья, в конце Вам удалось увидеть свет </br> "Свобода" - подумали вы и оказались правы. Поздравляем! '],
+        typeSpeed: 40,
+        startDelay: 500,
+        backSpeed: 50,
+        loop: false,
+    })
+}
 
+function room7() {
+    context.clearRect(0, 0, 1000, 1000)
+    context.drawImage(image6, 10, 10, 780, 400)
 }
 
 function switchRoom(event) {
-    if (isTyping) {
-        return
+    if (typed) {
+        typed.destroy()
+        typed = null
     }
     if (event.key == 1) {
         if (curentRoom == 1) {
@@ -164,5 +196,5 @@ function switchRoom(event) {
     }
 }
 
-window.addEventListener('load', room2)
+window.addEventListener('load', room1)
 document.addEventListener('keydown', switchRoom)
